@@ -1,0 +1,33 @@
+{% extends 'base_html.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+	<head>
+		<meta charset = "utf-8">
+		<title>survey</title>
+		<link rel = "stylesheet" href="{% static 'styles.css' %}">
+	</head>
+
+	<body>
+
+		<h1>{{survey.title}}</h1>
+		<form action="{%url 'surveys:choose' question_id %}" method="post">
+			{% csrf_token %}
+
+		{% for Question in survey.Question_set.all %}
+		<p>{{Question}}</p>
+		<p> {% for Option in Question.Option_set.all %}
+			<input type = "radio" name = "Options" id ="Option{{ forloop.counter }}" value="{{Option.id }}" />
+			<label for = "Option{{ forloop.counter }}">{{ Option.Option_Text }} </label>label><br />
+			{% endfor %}
+			<input type="submit" value="Choose" />
+		</form>
+
+
+
+		<div 
+
+	</body>
+
+{% endblock %}
